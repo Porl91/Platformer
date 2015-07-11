@@ -24,41 +24,14 @@ namespace Platformer
 		public Platformer()
 		{
 			_graphics = new GraphicsDeviceManager(this);
-			//#if MACOS
-			//            Content.RootDirectory = "AngryNinjas/Content";
-			//#else
+			
 			Content.RootDirectory = "Content";
-			//#endif
-			//
-			//#if XBOX || OUYA
-			//            graphics.IsFullScreen = true;
-			//#else
 			_graphics.IsFullScreen = false;
-			//#endif
-
-			// Frame rate is 30 fps by default for Windows Phone.
 			TargetElapsedTime = TimeSpan.FromTicks(333333 / 2);
-
-			// Extend battery life under lock.
-			//InactiveSleepTime = TimeSpan.FromSeconds(1);
 
 			CCApplication application = new AppDelegate(this, _graphics);
 			Components.Add(application);
-			//#if XBOX || OUYA
-			//            CCDirector.SharedDirector.GamePadEnabled = true;
-			//            application.GamePadButtonUpdate += new CCGamePadButtonDelegate(application_GamePadButtonUpdate);
-			//#endif
 		}
-
-		//#if XBOX || OUYA
-		//        private void application_GamePadButtonUpdate(CCGamePadButtonStatus backButton, CCGamePadButtonStatus startButton, CCGamePadButtonStatus systemButton, CCGamePadButtonStatus aButton, CCGamePadButtonStatus bButton, CCGamePadButtonStatus xButton, CCGamePadButtonStatus yButton, CCGamePadButtonStatus leftShoulder, CCGamePadButtonStatus rightShoulder, PlayerIndex player)
-		//        {
-		//            if (backButton == CCGamePadButtonStatus.Pressed)
-		//            {
-		//                ProcessBackClick();
-		//            }
-		//        }
-		//#endif
 
 		private void ProcessBackClick()
 		{
@@ -85,21 +58,13 @@ namespace Platformer
 
 			_spritesheet = Content.Load<Texture2D>("Spritesheet");
 			
-			_renderManager = new RenderManager(_graphics, _spriteBatch, _spritesheet);
+			_renderManager = new RenderManager(_graphics, _spriteBatch, _spritesheet, _screenArea);
 
 			_world = new World.World();
 		}
 
 		protected override void Update(GameTime gameTime)
 		{
-			// Allows the game to exit
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-			{
-				ProcessBackClick();
-			}
-
-			// TODO: Add your update logic here
-
 			_world.Update();
 
 			base.Update(gameTime);
