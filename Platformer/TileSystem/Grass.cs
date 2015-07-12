@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Platformer.Tile
+using Microsoft.Xna.Framework;
+
+namespace Platformer.TileSystem
 {
-	public class Dirt : Tile
+	public class Grass : Tile
 	{
 		public override void Update()
 		{
@@ -13,6 +15,7 @@ namespace Platformer.Tile
 
 		public override void Render(RenderManager renderManager, int x, int y)
 		{
+			renderManager.DrawTexture(new Rectangle(32, 0, Tile.Width, Tile.Height), new Vector2(x, y));
 		}
 	}
 }

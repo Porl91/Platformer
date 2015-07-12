@@ -19,7 +19,7 @@ namespace Platformer
 		private SpriteBatch _spriteBatch;
 		private RenderManager _renderManager;
 
-		private World.World _world;
+		private Level _world;
 
 		public Platformer()
 		{
@@ -60,12 +60,14 @@ namespace Platformer
 			
 			_renderManager = new RenderManager(_graphics, _spriteBatch, _spritesheet, _screenArea);
 
-			_world = new World.World();
+			_world = new Level();
 		}
 
 		protected override void Update(GameTime gameTime)
 		{
-			_world.Update();
+			KeyboardState keyboardState = Keyboard.GetState();
+			
+			_world.Update(keyboardState);
 
 			base.Update(gameTime);
 		}

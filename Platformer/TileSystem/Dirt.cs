@@ -5,9 +5,9 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 
-namespace Platformer.World.Entity
+namespace Platformer.TileSystem
 {
-	public class Player : Entity
+	public class Dirt : Tile
 	{
 		public override void Update()
 		{
@@ -15,7 +15,7 @@ namespace Platformer.World.Entity
 
 		public override void Render(RenderManager renderManager, int x, int y)
 		{
-			renderManager.DrawTexture(new Rectangle(0, 0, 32, 32), new Vector2(0, 0));
+			renderManager.DrawTexture(new Rectangle(0, 0, Tile.Width, Tile.Height), new Vector2(x, y));
 		}
 	}
 }

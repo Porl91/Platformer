@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework;
 
-namespace Platformer.World.Entity
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+
+namespace Platformer.World.EntitySystem
 {
 	public enum PlayerDirection
 	{
@@ -35,8 +37,13 @@ namespace Platformer.World.Entity
 			Direction = PlayerDirection.DOWN;
 		}
 
-		public abstract void Update();
+		public abstract void Update(KeyboardState keyboardState);
 
 		public abstract void Render(RenderManager renderManager, int x, int y);
+
+		public void Move(Vector2 deltaMovement)
+		{
+			Position += deltaMovement;
+		}
 	}
 }
