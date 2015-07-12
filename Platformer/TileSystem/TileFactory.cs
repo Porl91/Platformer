@@ -24,13 +24,6 @@ namespace Platformer.TileSystem
 			}
 		}
 
-		static TileFactory()
-		{
-			Empty = InitialiseTile(0, new Empty());
-			Dirt = InitialiseTile(1, new Dirt());
-			Grass = InitialiseTile(2, new Grass());
-		}
-
 		private static Tile InitialiseTile(int index, Tile t)
 		{
 			if(Tiles.ContainsKey(index))
@@ -56,11 +49,18 @@ namespace Platformer.TileSystem
 			return match.Value;
 		}
 
-		#region tile creation
+		#region tile declaration + definition
 
 		public static Tile Empty;
 		public static Tile Dirt;
 		public static Tile Grass;
+
+		static TileFactory()
+		{
+			Empty = InitialiseTile(0, new Empty());
+			Dirt = InitialiseTile(1, new Dirt());
+			Grass = InitialiseTile(2, new Grass());
+		}
 
 		#endregion
 	}
