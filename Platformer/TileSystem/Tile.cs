@@ -40,7 +40,7 @@ namespace Platformer.TileSystem
 
 		private bool _isObstructive = true;
 
-		public bool IsObstructive
+		public virtual bool IsObstructive
 		{
 			get
 			{
@@ -53,7 +53,7 @@ namespace Platformer.TileSystem
 			}
 		}
 
-		public void IntersectedWith(Entity e)
+		public virtual void IntersectedWith(Entity e)
 		{
 			if (e is Player)
 			{

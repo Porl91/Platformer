@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using Platformer.Exceptions;
 
 namespace Platformer.TileSystem
 {
-	public class TileFactory
+	public static class TileFactory
 	{
 		private static Dictionary<int, Tile> _tiles = null;
 
@@ -15,7 +13,7 @@ namespace Platformer.TileSystem
 		{
 			get
 			{
-				if(_tiles == null)
+				if (_tiles == null)
 				{
 					_tiles = new Dictionary<int, Tile>();
 				}
@@ -26,20 +24,20 @@ namespace Platformer.TileSystem
 
 		private static Tile InitialiseTile(int index, Tile t)
 		{
-			if(Tiles.ContainsKey(index))
+			if (Tiles.ContainsKey(index))
 			{
 				throw new DuplicateTileException("A single tile index has been associated with multiple Tile instances");
 			}
 
 			t.Key = index;
 			Tiles.Add(index, t);
-			
+
 			return t;
 		}
 
 		public static Tile GetTileByID(int id)
 		{
-			if(!Tiles.ContainsKey(id))
+			if (!Tiles.ContainsKey(id))
 			{
 				throw new InvalidTileException("This tile doesn't exist");
 			}
