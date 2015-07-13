@@ -1,4 +1,5 @@
-﻿
+﻿using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -71,8 +72,6 @@ namespace Platformer.World.EntitySystem
 		public virtual void Move(Vector2 deltaMovement)
 		{
 			Position += deltaMovement;
-
-
 		}
 	}
 }
