@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 using Platformer.Exceptions;
+using Platformer.World.EntitySystem;
 
 namespace Platformer.TileSystem
 {
@@ -22,9 +19,9 @@ namespace Platformer.TileSystem
 		{
 			get
 			{
-				if(_key == -1)
+				if (_key == -1)
 				{
-					throw new InvalidTileIndexException("Tile index is an invalid valid: " + _key);
+					throw new InvalidTileIndexException("Tile index is an invalid value: " + _key);
 				}
 
 				return _key;
@@ -54,6 +51,16 @@ namespace Platformer.TileSystem
 			{
 				_isObstructive = value;
 			}
+		}
+
+		public void IntersectedWith(Entity e)
+		{
+			if (e is Player)
+			{
+				// Player specific intersection
+			}
+
+			// Standard entity intersection
 		}
 	}
 }
