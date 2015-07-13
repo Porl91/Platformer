@@ -44,3 +44,5 @@ F:\Platformer\Platformer\bin\WindowsDX\Debug\SharpDX.XAudio2.dll
 F:\Platformer\Platformer\bin\WindowsDX\Debug\SharpDX.XInput.dll
 F:\Platformer\Platformer\bin\WindowsDX\Debug\zlib.net.dll
 F:\Platformer\Platformer\obj\x86\Debug\Platformer.csprojResolveAssemblyReference.cache
+E:\Other\Experimental\Platformer\obj\x86\Debug\Platformer.exe
+E:\Other\Experimental\Platformer\obj\x86\Debug\Platformer.pdb
