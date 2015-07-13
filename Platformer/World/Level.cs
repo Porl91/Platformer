@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-
-using Platformer.World.EntitySystem;
+using Platformer.Render;
 using Platformer.TileSystem;
+using Platformer.World.EntitySystem;
 
 namespace Platformer.World
 {
@@ -45,7 +42,7 @@ namespace Platformer.World
 
 			Random rand = new Random();
 
-			for(int y = 0; y < mapHeight; y++)
+			for (int y = 0; y < mapHeight; y++)
 			{
 				for (int x = 0; x < mapWidth; x++)
 				{
@@ -56,7 +53,7 @@ namespace Platformer.World
 
 		public void Update(KeyboardState keyboardState)
 		{
-			foreach(var entity in _entities)
+			foreach (var entity in _entities)
 			{
 				entity.Update(keyboardState);
 			}
@@ -70,7 +67,7 @@ namespace Platformer.World
 			int truncPlayerY = (int)_player.Position.Y;
 
 			int offsetX = truncPlayerX - (renderManager.ViewportWidth >> 1);
-			int offsetY = truncPlayerY - (renderManager.ViewportHeight>> 1);
+			int offsetY = truncPlayerY - (renderManager.ViewportHeight >> 1);
 
 			int tileStartX = offsetX / Tile.Width;
 			int tileStartY = offsetY / Tile.Height;
@@ -82,8 +79,8 @@ namespace Platformer.World
 			{
 				for (int x = tileStartX - 1; x < tileStartX + horizTiles + 1; x++)
 				{
-					GetTile(x, y).Render(renderManager, 
-						x * Tile.Width - offsetX, 
+					GetTile(x, y).Render(renderManager,
+						x * Tile.Width - offsetX,
 						y * Tile.Height - offsetY
 					);
 				}
@@ -92,7 +89,7 @@ namespace Platformer.World
 
 		private Tile GetTile(int mapX, int mapY)
 		{
-			if(mapX < 0 || mapY < 0 || mapX >= _mapWidth || mapY >= _mapHeight)
+			if (mapX < 0 || mapY < 0 || mapX >= _mapWidth || mapY >= _mapHeight)
 			{
 				return TileFactory.Empty;
 			}

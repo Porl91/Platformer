@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using Platformer.Render;
 using Platformer.World;
 
 namespace Platformer
@@ -24,7 +25,7 @@ namespace Platformer
 		public Platformer()
 		{
 			_graphics = new GraphicsDeviceManager(this);
-			
+
 			Content.RootDirectory = "Content";
 			_graphics.IsFullScreen = false;
 			TargetElapsedTime = TimeSpan.FromTicks(333333 / 2);
@@ -57,7 +58,7 @@ namespace Platformer
 			);
 
 			_spritesheet = Content.Load<Texture2D>("Spritesheet");
-			
+
 			_renderManager = new RenderManager(_graphics, _spriteBatch, _spritesheet, _screenArea);
 
 			_world = new Level();
@@ -66,7 +67,7 @@ namespace Platformer
 		protected override void Update(GameTime gameTime)
 		{
 			KeyboardState keyboardState = Keyboard.GetState();
-			
+
 			_world.Update(keyboardState);
 
 			base.Update(gameTime);

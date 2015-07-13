@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using Platformer.Render;
+
 namespace Platformer.World.EntitySystem
 {
 	public enum EntityDirection

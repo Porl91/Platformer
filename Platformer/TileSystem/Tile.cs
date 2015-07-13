@@ -1,5 +1,6 @@
 ﻿
 using Platformer.Exceptions;
+using Platformer.Render;
 using Platformer.World.EntitySystem;
 
 namespace Platformer.TileSystem

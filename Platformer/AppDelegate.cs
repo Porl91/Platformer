@@ -1,7 +1,5 @@
-using System.Reflection;
-using Microsoft.Xna.Framework;
 using Cocos2D;
-using CocosDenshion;
+using Microsoft.Xna.Framework;
 
 namespace Platformer
 {

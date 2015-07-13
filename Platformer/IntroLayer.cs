@@ -1,6 +1,4 @@
-using System;
 using Cocos2D;
-using Microsoft.Xna.Framework;
 
 namespace Platformer
 {
