@@ -14,7 +14,10 @@ namespace Platformer.World.EntitySystem
 		LEFT,
 		RIGHT
 	}
-
+	
+	///<summary>
+	/// Base entity class.
+	///</summary>
 	public abstract class Entity
 	{
 		public Vector2 Position { get; set; }
