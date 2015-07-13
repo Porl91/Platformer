@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 using Platformer.Render;
+using Platformer.TileSystem;
 
 namespace Platformer.World.EntitySystem
 {
@@ -35,13 +36,40 @@ namespace Platformer.World.EntitySystem
 			Direction = EntityDirection.DOWN;
 		}
 
+		private Vector2 _halfDimensions { get; set; }
+
+		public Vector2 HalfDimensions
+		{
+			get
+			{
+				if (_halfDimensions == null)
+				{
+					_halfDimensions = new Vector2(Tile.Width >> 1, Tile.Height >> 1);
+				}
+
+				return _halfDimensions;
+			}
+
+			set
+			{
+				_halfDimensions = value;
+			}
+		}
+
 		public abstract void Update(KeyboardState keyboardState);
 
 		public abstract void Render(RenderManager renderManager, int x, int y);
 
+		protected virtual void InitialiseHalfDimensions(Vector2 halfDimensions)
+		{
+			HalfDimensions = halfDimensions;
+		}
+
 		public virtual void Move(Vector2 deltaMovement)
 		{
 			Position += deltaMovement;
+
+
 		}
 	}
 }

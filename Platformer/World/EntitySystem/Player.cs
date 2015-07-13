@@ -8,6 +8,11 @@ namespace Platformer.World.EntitySystem
 {
 	public class Player : Entity
 	{
+		public Player()
+		{
+			InitialiseHalfDimensions(new Vector2(16, 16));
+		}
+
 		public override void Update(KeyboardState keyboardState)
 		{
 			if (keyboardState.IsKeyDown(Keys.W))
