@@ -22,6 +22,7 @@ namespace Platformer.World.EntitySystem
 	{
 		public Vector2 Position { get; set; }
 		public EntityDirection Direction { get; set; }
+		public int randNewField;
 
 		public Entity(float x, float y)
 			: this(new Vector2(x, y))

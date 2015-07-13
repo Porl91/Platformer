@@ -46,3 +46,5 @@ F:\Platformer\Platformer\bin\WindowsDX\Debug\zlib.net.dll
 F:\Platformer\Platformer\obj\x86\Debug\Platformer.csprojResolveAssemblyReference.cache
 E:\Other\Experimental\Platformer\obj\x86\Debug\Platformer.exe
 E:\Other\Experimental\Platformer\obj\x86\Debug\Platformer.pdb
+F:\Test\Platformer\obj\x86\Debug\Platformer.exe
+F:\Test\Platformer\obj\x86\Debug\Platformer.pdb
