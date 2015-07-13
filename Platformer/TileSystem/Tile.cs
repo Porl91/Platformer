@@ -16,6 +16,8 @@ namespace Platformer.TileSystem
 
 		private int _key = -1;
 
+		private bool _isHarmful;
+
 		public int Key
 		{
 			get
