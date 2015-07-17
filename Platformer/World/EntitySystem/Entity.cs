@@ -23,6 +23,7 @@ namespace Platformer.World.EntitySystem
 	{
 		public Vector2 Position { get; set; }
 		public EntityDirection Direction { get; set; }
+		private int i;
 		
 		public Entity(float x, float y)
 			: this(new Vector2(x, y))
@@ -72,6 +73,8 @@ namespace Platformer.World.EntitySystem
 		public virtual void Move(Vector2 deltaMovement)
 		{
 			Position += deltaMovement;
+
+
 		}
 	}
 }
