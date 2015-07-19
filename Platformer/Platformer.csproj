@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <ApplicationIcon>ico.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
@@ -110,10 +110,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\ico.ico" />
     <Content Include="Content\Spritesheet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Game.ico" />
+    <Content Include="ico.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
