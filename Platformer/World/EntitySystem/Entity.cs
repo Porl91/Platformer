@@ -16,28 +16,27 @@ namespace Platformer.World.EntitySystem
 		RIGHT
 	}
 	
-	///<summary>
-	/// Base entity class.
-	///</summary>
 	public abstract class Entity
 	{
 		public Vector2 Position { get; set; }
 		public EntityDirection Direction { get; set; }
+		public Level Level { get; set; }
 		
-		public Entity(float x, float y)
-			: this(new Vector2(x, y))
+		public Entity(Level level, float x, float y)
+			: this(level, new Vector2(x, y))
 		{
 		}
 
-		public Entity()
-			: this(new Vector2(0, 0))
+		public Entity(Level level)
+			: this(level, new Vector2(0, 0))
 		{
 		}
 
-		public Entity(Vector2 position)
+		public Entity(Level level, Vector2 position)
 		{
 			Position = position;
 			Direction = EntityDirection.DOWN;
+			Level = level;
 		}
 
 		private Vector2 _halfDimensions { get; set; }
@@ -62,18 +61,6 @@ namespace Platformer.World.EntitySystem
 
 		public abstract void Update(KeyboardState keyboardState);
 
-		public abstract void Render(RenderManager renderManager, int x, int y);
-
-		protected virtual void InitialiseHalfDimensions(Vector2 halfDimensions)
-		{
-			HalfDimensions = halfDimensions;
-		}
-
-		public virtual void Move(Vector2 deltaMovement)
-		{
-			Position += deltaMovement;
-
-
-		}
+		public abstract void Render(RenderManager renderManager, Camera camera);
 	}
 }

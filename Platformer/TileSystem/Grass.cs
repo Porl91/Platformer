@@ -7,6 +7,11 @@ namespace Platformer.TileSystem
 {
 	public class Grass : Tile
 	{
+		public Grass()
+		{
+			IsObstructive = true;
+		}
+
 		public override void Update()
 		{
 		}

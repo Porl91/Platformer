@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Entensions\Vector2Extensions.cs" />
     <Compile Include="Exceptions\DuplicateTileException.cs" />
     <Compile Include="Exceptions\InvalidTileException.cs" />
     <Compile Include="Exceptions\InvalidTileIndexException.cs" />
@@ -49,8 +50,11 @@
     <Compile Include="TileSystem\Grass.cs" />
     <Compile Include="TileSystem\Tile.cs" />
     <Compile Include="TileSystem\TileFactory.cs" />
+    <Compile Include="World\EntitySystem\DynamicEntity.cs" />
+    <Compile Include="World\EntitySystem\Camera.cs" />
     <Compile Include="World\EntitySystem\Entity.cs" />
     <Compile Include="World\EntitySystem\Player.cs" />
+    <Compile Include="World\EnvironmentVariables.cs" />
     <Compile Include="World\Level.cs" />
   </ItemGroup>
   <ItemGroup>

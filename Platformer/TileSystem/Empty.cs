@@ -4,6 +4,11 @@ namespace Platformer.TileSystem
 {
 	public class Empty : Tile
 	{
+		public Empty()
+		{
+			IsObstructive = false;
+		}
+
 		public override void Update()
 		{
 		}

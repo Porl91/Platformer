@@ -32,7 +32,7 @@ namespace Platformer.World
 
 		private void Initialise(int mapWidth, int mapHeight)
 		{
-			_player = new Player();
+			_player = new Player(this);
 			_entities = new List<Entity>();
 			_entities.Add(_player);
 
@@ -85,9 +85,16 @@ namespace Platformer.World
 					);
 				}
 			}
+
+			var camera = new Camera(this, _player.Position + new Vector2(-renderManager.ViewportWidth >> 1, -renderManager.ViewportHeight >> 1));
+
+			foreach(var entity in _entities)
+			{
+				entity.Render(renderManager, camera);
+			}
 		}
 
-		private Tile GetTile(int mapX, int mapY)
+		public Tile GetTile(int mapX, int mapY)
 		{
 			if (mapX < 0 || mapY < 0 || mapX >= _mapWidth || mapY >= _mapHeight)
 			{
