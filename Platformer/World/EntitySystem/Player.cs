@@ -14,7 +14,7 @@ namespace Platformer.World.EntitySystem
 		{
 			HalfDimensions = new Vector2(8, 16);
 
-			Position = new Vector2(500, -90);
+			Position = new Vector2(500, 0);
 		}
 
 		public override void Update(KeyboardState keyboardState)

@@ -46,7 +46,7 @@ namespace Platformer.World
 			{
 				for (int x = 0; x < mapWidth; x++)
 				{
-					_map[y * mapWidth + x] = rand.Next(0, 3);
+					_map[y * mapWidth + x] = y < 5 ? 0 : rand.Next(0, 3);
 				}
 			}
 		}

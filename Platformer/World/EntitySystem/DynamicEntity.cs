@@ -64,8 +64,8 @@ namespace Platformer.World.EntitySystem
 		{
 			var newPosition = Position + deltaMovement;
 
-			var tileStart = ((Position - HalfDimensions) / new Vector2(Tile.Width, Tile.Height)).Floor();
-			var tileEnd = ((Position + HalfDimensions) / new Vector2(Tile.Width, Tile.Height)).Floor();
+			var tileStart = ((newPosition - HalfDimensions) / new Vector2(Tile.Width, Tile.Height)).Floor();
+			var tileEnd = ((newPosition + HalfDimensions) / new Vector2(Tile.Width, Tile.Height)).Floor();
 
 			var blocked = false;
 
@@ -102,13 +102,11 @@ namespace Platformer.World.EntitySystem
 
 				if (Position.Y != yy)
 				{
-					//_onGround = true;
-					//Velocity = new Vector2(Velocity.X, 0);
+					_onGround = true;
+					Velocity = new Vector2(Velocity.X, 0);
 				}
 				
 				Position = new Vector2(Position.X, yy);
-
-				Console.WriteLine("Colliding");
 			}
 		}
 	}
