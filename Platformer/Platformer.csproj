@@ -40,6 +40,7 @@
     <Compile Include="Exceptions\DuplicateTileException.cs" />
     <Compile Include="Exceptions\InvalidTileException.cs" />
     <Compile Include="Exceptions\InvalidTileIndexException.cs" />
+    <Compile Include="Exceptions\MultipleMovementAxisException.cs" />
     <Compile Include="Platformer.cs" />
     <Compile Include="IntroLayer.cs" />
     <Compile Include="Program.cs" />

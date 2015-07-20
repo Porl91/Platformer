@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-
-using Platformer.TileSystem;
 using Platformer.Entensions;
+using Platformer.Exceptions;
+using Platformer.TileSystem;
 
 namespace Platformer.World.EntitySystem
 {
@@ -26,7 +23,7 @@ namespace Platformer.World.EntitySystem
 		{
 			get
 			{
-				if(_velocity == null)
+				if (_velocity == null)
 				{
 					_velocity = new Vector2(0, 0);
 				}
@@ -53,7 +50,7 @@ namespace Platformer.World.EntitySystem
 
 		protected void Jump()
 		{
-			if(_onGround)
+			if (_onGround)
 			{
 				Velocity += _jumpFactor;
 				_onGround = false;
@@ -62,6 +59,9 @@ namespace Platformer.World.EntitySystem
 
 		public virtual void Move(Vector2 deltaMovement)
 		{
+			if (deltaMovement.X != 0 && deltaMovement.Y != 0)
+				throw new MultipleMovementAxisException("Dynamic entities may only move on a single axis at one time");
+
 			var newPosition = Position + deltaMovement;
 
 			var tileStart = ((newPosition - HalfDimensions) / new Vector2(Tile.Width, Tile.Height)).Floor();
@@ -96,17 +96,25 @@ namespace Platformer.World.EntitySystem
 				var yy = 0;
 
 				if (deltaMovement.Y > 0)
+					xx = (int)(collidedTiles.Select(ct => ct.X).Min() * Tile.Width - HalfDimensions.X - 1);
+				else
+					xx = (int)(collidedTiles.Select(ct => ct.X).Max() * Tile.Width + HalfDimensions.X + 1);
+
+				if (deltaMovement.Y > 0)
 					yy = (int)(collidedTiles.Select(ct => ct.Y).Min() * Tile.Height - HalfDimensions.Y - 1);
 				else
 					yy = (int)(collidedTiles.Select(ct => ct.Y).Max() * Tile.Height + HalfDimensions.Y + 1);
 
-				if (Position.Y != yy)
+				if (deltaMovement.Y != 0 && Position.Y != yy)
 				{
 					_onGround = true;
 					Velocity = new Vector2(Velocity.X, 0);
 				}
-				
-				Position = new Vector2(Position.X, yy);
+
+				if (deltaMovement.X != 0)
+					Position = new Vector2(Position.X, yy);
+				else
+					Position = new Vector2(xx, Position.Y);
 			}
 		}
 	}
