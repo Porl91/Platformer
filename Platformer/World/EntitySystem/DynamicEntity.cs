@@ -95,7 +95,7 @@ namespace Platformer.World.EntitySystem
 				var xx = 0;
 				var yy = 0;
 
-				if (deltaMovement.Y > 0)
+				if (deltaMovement.X > 0)
 					xx = (int)(collidedTiles.Select(ct => ct.X).Min() * Tile.Width - HalfDimensions.X - 1);
 				else
 					xx = (int)(collidedTiles.Select(ct => ct.X).Max() * Tile.Width + HalfDimensions.X + 1);
