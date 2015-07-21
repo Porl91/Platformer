@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 
 using Platformer.Render;
+using Platformer.World;
 
 namespace Platformer.TileSystem
 {
@@ -12,7 +13,7 @@ namespace Platformer.TileSystem
 			IsObstructive = true;
 		}
 
-		public override void Update(int x, int y, ref int states)
+		public override void Update(Level level, int x, int y, ref int states)
 		{
 		}
 

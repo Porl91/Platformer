@@ -1,6 +1,7 @@
 ﻿
 using Platformer.Exceptions;
 using Platformer.Render;
+using Platformer.World;
 using Platformer.World.EntitySystem;
 
 namespace Platformer.TileSystem
@@ -10,7 +11,7 @@ namespace Platformer.TileSystem
 		public static int Width = 32;
 		public static int Height = 32;
 
-		public abstract void Update(int x, int y, ref int states);
+		public abstract void Update(Level level, int x, int y, ref int states);
 
 		public abstract void UpdateType();
 

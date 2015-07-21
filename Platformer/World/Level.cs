@@ -88,7 +88,7 @@ namespace Platformer.World
 					var xx = (int)(x + playerTile.X);
 					var yy = (int)(y + playerTile.Y);
 
-					GetTile(xx, yy).Update(xx, yy, ref _states[yy * _mapWidth + xx]);
+					GetTile(xx, yy).Update(this, xx, yy, ref _states[yy * _mapWidth + xx]);
 				}
 			}
 
