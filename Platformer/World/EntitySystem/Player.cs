@@ -12,7 +12,7 @@ namespace Platformer.World.EntitySystem
 		public Player(Level level)
 			: base(level)
 		{
-			HalfDimensions = new Vector2(8, 16);
+			HalfDimensions = new Vector2(8, 14);
 
 			Position = new Vector2(500, 0);
 		}

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -40,17 +41,17 @@ namespace Platformer.World.EntitySystem
 		public override void Update(KeyboardState keyboardState)
 		{
 			ApplyGravity();
+			Move(Velocity);
 		}
 
 		private void ApplyGravity()
 		{
 			Velocity += EnvironmentVariables.GRAVITY;
-			Move(Velocity);
 		}
 
 		protected void Jump()
 		{
-			if (_onGround)
+			if (_onGround && Velocity.Y == 0)	// Blegh - needs rethinking
 			{
 				Velocity += _jumpFactor;
 				_onGround = false;
@@ -88,33 +89,49 @@ namespace Platformer.World.EntitySystem
 				}
 			}
 
+			BindPositionToCollisions(collidedTiles, deltaMovement, newPosition, blocked);
+		}
+
+		private void BindPositionToCollisions(List<Vector2> collidedTiles, Vector2 deltaMovement, Vector2 newPosition, bool blocked)
+		{
 			if (!blocked)
 				Position = newPosition;
 			else if (collidedTiles.Any())
 			{
 				var xx = 0;
 				var yy = 0;
+				var boundToFloor = false;
 
-				if (deltaMovement.X > 0)
-					xx = (int)(collidedTiles.Select(ct => ct.X).Min() * Tile.Width - HalfDimensions.X - 1);
-				else
-					xx = (int)(collidedTiles.Select(ct => ct.X).Max() * Tile.Width + HalfDimensions.X + 1);
+				if (deltaMovement.X != 0)
+				{
+					if (deltaMovement.X > 0)
+						xx = (int)(collidedTiles.Select(ct => ct.X).Min() * Tile.Width - HalfDimensions.X - 1);
+					else
+						xx = (int)(collidedTiles.Select(ct => ct.X).Max() * Tile.Width + Tile.Width + HalfDimensions.X + 1);
+				}
 
-				if (deltaMovement.Y > 0)
-					yy = (int)(collidedTiles.Select(ct => ct.Y).Min() * Tile.Height - HalfDimensions.Y - 1);
-				else
-					yy = (int)(collidedTiles.Select(ct => ct.Y).Max() * Tile.Height + HalfDimensions.Y + 1);
+				if (deltaMovement.Y != 0)
+				{
+					if (deltaMovement.Y > 0)
+					{
+						yy = (int)(collidedTiles.Select(ct => ct.Y).Min() * Tile.Height - HalfDimensions.Y - 1);
+						boundToFloor = true;
+					}
+					else
+						yy = (int)(collidedTiles.Select(ct => ct.Y).Max() * Tile.Height + Tile.Height + HalfDimensions.Y);
+				}
 
-				if (deltaMovement.Y != 0 && Position.Y != yy)
+				if (boundToFloor)
 				{
 					_onGround = true;
 					Velocity = new Vector2(Velocity.X, 0);
 				}
 
 				if (deltaMovement.X != 0)
-					Position = new Vector2(Position.X, yy);
-				else
 					Position = new Vector2(xx, Position.Y);
+
+				if (deltaMovement.Y != 0)
+					Position = new Vector2(Position.X, yy);
 			}
 		}
 	}

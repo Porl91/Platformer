@@ -53,6 +53,9 @@ namespace Platformer.World
 
 		public void Update(KeyboardState keyboardState)
 		{
+			if (keyboardState.IsKeyDown(Keys.Q))
+				Initialise(_mapWidth, _mapHeight);
+
 			foreach (var entity in _entities)
 			{
 				entity.Update(keyboardState);
