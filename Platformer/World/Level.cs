@@ -22,12 +22,12 @@ namespace Platformer.World
 		private int _defaultMapWidth = 2048;
 		private int _defaultMapHeight = 512;
 
-		private Vector2 _mapUpdateExtent;
+		private Vector2 _mapUpdateExtent = Vector2.Zero;
 		public Vector2 MapUpdateExtent
 		{
 			get
 			{
-				if (_mapUpdateExtent == null)
+				if (_mapUpdateExtent == Vector2.Zero)
 				{
 					_mapUpdateExtent = new Vector2(100, 100);
 				}
@@ -87,6 +87,11 @@ namespace Platformer.World
 				{
 					var xx = (int)(x + playerTile.X);
 					var yy = (int)(y + playerTile.Y);
+
+					if(yy < 0 || xx < 0 || yy >= _mapHeight || xx >= _mapWidth)
+					{
+						continue;
+					}
 
 					GetTile(xx, yy).Update(this, xx, yy, ref _states[yy * _mapWidth + xx]);
 				}
