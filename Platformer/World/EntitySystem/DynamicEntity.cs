@@ -102,8 +102,6 @@ namespace Platformer.World.EntitySystem
 				var yy = 0;
 				var boundToFloor = false;
 
-				int i;
-
 				if (deltaMovement.X != 0)
 				{
 					if (deltaMovement.X > 0)
