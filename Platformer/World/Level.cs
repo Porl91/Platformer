@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Platformer.Entensions;
 using Platformer.Render;
 using Platformer.TileSystem;
 using Platformer.World.EntitySystem;
@@ -13,12 +14,27 @@ namespace Platformer.World
 		private Player _player;
 		private IList<Entity> _entities;
 		private int[] _map;
+		private int[] _states;
 
 		private int _mapWidth;
 		private int _mapHeight;
 
 		private int _defaultMapWidth = 2048;
 		private int _defaultMapHeight = 512;
+
+		private Vector2 _mapUpdateExtent;
+		public Vector2 MapUpdateExtent
+		{
+			get
+			{
+				if (_mapUpdateExtent == null)
+				{
+					_mapUpdateExtent = new Vector2(100, 100);
+				}
+
+				return _mapUpdateExtent;
+			}
+		}
 
 		public Level(int mapWidth, int mapHeight)
 		{
@@ -39,6 +55,7 @@ namespace Platformer.World
 			_mapWidth = mapWidth;
 			_mapHeight = mapHeight;
 			_map = new int[_mapWidth * _mapHeight];
+			_states = new int[_mapWidth * _mapHeight];
 
 			Random rand = new Random();
 
@@ -46,7 +63,8 @@ namespace Platformer.World
 			{
 				for (int x = 0; x < mapWidth; x++)
 				{
-					_map[y * mapWidth + x] = y < 5 ? 0 : rand.Next(0, 3);
+					_map[y * mapWidth + x] = y < 5 ? 0 : (rand.Next(0, 10) == 5 ? TileFactory.Water.Key : rand.Next(0, 3));
+					_states[y * mapWidth + x] = 0;
 				}
 			}
 		}
@@ -55,6 +73,24 @@ namespace Platformer.World
 		{
 			if (keyboardState.IsKeyDown(Keys.Q))
 				Initialise(_mapWidth, _mapHeight);
+
+			TileFactory.UpdateTypes();
+
+			var hh = (int)MapUpdateExtent.X >> 1;
+			var hw = (int)MapUpdateExtent.Y >> 1;
+
+			var playerTile = (_player.Position / new Vector2(Tile.Width, Tile.Height)).Floor();
+
+			for (var y = -hh; y <= hh; y++)
+			{
+				for (var x = -hw; x <= hw; x++)
+				{
+					var xx = (int)(x + playerTile.X);
+					var yy = (int)(y + playerTile.Y);
+
+					GetTile(xx, yy).Update(xx, yy, ref _states[yy * _mapWidth + xx]);
+				}
+			}
 
 			foreach (var entity in _entities)
 			{

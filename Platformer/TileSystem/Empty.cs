@@ -9,7 +9,11 @@ namespace Platformer.TileSystem
 			IsObstructive = false;
 		}
 
-		public override void Update()
+		public override void Update(int x, int y, ref int states)
+		{
+		}
+
+		public override void UpdateType()
 		{
 		}
 

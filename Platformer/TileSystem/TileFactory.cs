@@ -52,17 +52,27 @@ namespace Platformer.TileSystem
 			return Tiles.ContainsKey(tileID);
 		}
 
+		public static void UpdateTypes()
+		{
+			foreach(var tile in Tiles)
+			{
+				tile.Value.UpdateType();
+			}
+		}
+
 		#region tile declaration + definition
 
 		public static Tile Empty;
 		public static Tile Dirt;
 		public static Tile Grass;
+		public static Tile Water;
 
 		static TileFactory()
 		{
 			Empty = InitialiseTile(0, new Empty());
 			Dirt = InitialiseTile(1, new Dirt());
 			Grass = InitialiseTile(2, new Grass());
+			Water = InitialiseTile(3, new Water());
 		}
 
 		#endregion

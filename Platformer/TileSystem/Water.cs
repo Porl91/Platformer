@@ -1,15 +1,19 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
 using Microsoft.Xna.Framework;
 
 using Platformer.Render;
 
 namespace Platformer.TileSystem
 {
-	public class Grass : Tile
+	public class Water : Tile
 	{
-		public Grass()
+		public Water()
 		{
-			IsObstructive = true;
+			IsObstructive = false;
 		}
 
 		public override void Update(int x, int y, ref int states)
@@ -22,7 +26,7 @@ namespace Platformer.TileSystem
 
 		public override void Render(RenderManager renderManager, int x, int y)
 		{
-			renderManager.DrawTexture(new Rectangle(32, 0, Tile.Width, Tile.Height), new Vector2(x, y));
+			renderManager.DrawTexture(new Rectangle(0, 32, Tile.Width, Tile.Height), new Vector2(x, y));
 		}
 	}
 }

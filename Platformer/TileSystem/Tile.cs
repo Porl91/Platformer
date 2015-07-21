@@ -10,7 +10,9 @@ namespace Platformer.TileSystem
 		public static int Width = 32;
 		public static int Height = 32;
 
-		public abstract void Update();
+		public abstract void Update(int x, int y, ref int states);
+
+		public abstract void UpdateType();
 
 		public abstract void Render(RenderManager renderManager, int x, int y);
 
