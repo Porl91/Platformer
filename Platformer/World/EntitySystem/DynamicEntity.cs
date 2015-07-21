@@ -12,7 +12,7 @@ namespace Platformer.World.EntitySystem
 	public abstract class DynamicEntity : Entity
 	{
 		private Vector2 _velocity = new Vector2(0, 0);
-		private Vector2 _jumpFactor = new Vector2(0, -3f);
+		private Vector2 _jumpFactor = new Vector2(0, -6f);
 		private bool _onGround = false;
 
 		public DynamicEntity(Level level)

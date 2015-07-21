@@ -17,8 +17,8 @@ namespace Platformer.World
 		private int _mapWidth;
 		private int _mapHeight;
 
-		private int _defaultMapWidth = 64;
-		private int _defaultMapHeight = 64;
+		private int _defaultMapWidth = 2048;
+		private int _defaultMapHeight = 512;
 
 		public Level(int mapWidth, int mapHeight)
 		{
@@ -99,7 +99,10 @@ namespace Platformer.World
 
 		public Tile GetTile(int mapX, int mapY)
 		{
-			if (mapX < 0 || mapY < 0 || mapX >= _mapWidth || mapY >= _mapHeight)
+			if (mapX < 0 
+				|| mapY < 0
+				|| mapX >= _mapWidth 
+				|| mapY >= _mapHeight)
 			{
 				return TileFactory.Empty;
 			}
@@ -107,6 +110,20 @@ namespace Platformer.World
 			int tileID = _map[mapY * _mapWidth + mapX];
 
 			return TileFactory.GetTileByID(tileID);
+		}
+
+		public void SetTile(int mapX, int mapY, int tileID)
+		{
+			if (mapX < 0 
+				|| mapY < 0 
+				|| mapX >= _mapWidth 
+				|| mapY >= _mapHeight
+				|| !TileFactory.TileExists(tileID))
+			{
+				return;
+			}
+
+			_map[mapY * _mapWidth + mapX] = tileID;
 		}
 	}
 }

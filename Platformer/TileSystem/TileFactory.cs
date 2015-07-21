@@ -9,7 +9,7 @@ namespace Platformer.TileSystem
 	{
 		private static Dictionary<int, Tile> _tiles = null;
 
-		public static Dictionary<int, Tile> Tiles
+		private static Dictionary<int, Tile> Tiles
 		{
 			get
 			{
@@ -37,7 +37,7 @@ namespace Platformer.TileSystem
 
 		public static Tile GetTileByID(int id)
 		{
-			if (!Tiles.ContainsKey(id))
+			if (!TileExists(id))
 			{
 				throw new InvalidTileException("This tile doesn't exist");
 			}
@@ -45,6 +45,11 @@ namespace Platformer.TileSystem
 			KeyValuePair<int, Tile> match = Tiles.ElementAt(id);
 
 			return match.Value;
+		}
+
+		public static bool TileExists(int tileID)
+		{
+			return Tiles.ContainsKey(tileID);
 		}
 
 		#region tile declaration + definition
