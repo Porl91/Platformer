@@ -57,6 +57,22 @@ namespace Platformer.TileSystem
 			}
 		}
 
+
+		private bool _isDestroyedByWater = false;
+
+		public virtual bool IsDestroyedByWater
+		{
+			get
+			{
+				return _isDestroyedByWater;
+			}
+
+			set
+			{
+				_isDestroyedByWater = value;
+			}
+		}
+
 		public virtual void IntersectedWith(Entity e)
 		{
 			if (e is Player)
