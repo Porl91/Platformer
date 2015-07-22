@@ -11,6 +11,7 @@ namespace Platformer.TileSystem
 		public Water()
 		{
 			IsObstructive = false;
+			CanSubmerge = true;
 		}
 
 		public override void Update(Level level, int x, int y, ref int states)
@@ -34,6 +35,12 @@ namespace Platformer.TileSystem
 					if (CanFlowInto(w) && !(s is Water))
 						level.SetTile(x - 1, y, this.Key);
 				}
+
+				if (!(sw is Water) && sw.IsObstructive && CanFlowInto(w))
+					level.SetTile(x - 1, y, this.Key);
+
+				if (!(se is Water) && se.IsObstructive && CanFlowInto(e))
+					level.SetTile(x + 1, y, this.Key);
 
 				states = 0;
 			}

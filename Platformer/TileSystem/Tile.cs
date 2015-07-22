@@ -73,14 +73,20 @@ namespace Platformer.TileSystem
 			}
 		}
 
-		public virtual void IntersectedWith(Entity e)
+
+		private bool _canSubmerge = false;
+
+		public virtual bool CanSubmerge
 		{
-			if (e is Player)
+			get
 			{
-				// Player specific intersection
+				return _canSubmerge;
 			}
 
-			// Standard entity intersection
+			set
+			{
+				_canSubmerge = value;
+			}
 		}
 
 		protected bool CanFlowInto(Tile t)

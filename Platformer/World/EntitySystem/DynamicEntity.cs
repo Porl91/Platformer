@@ -13,7 +13,22 @@ namespace Platformer.World.EntitySystem
 	{
 		private Vector2 _velocity = new Vector2(0, 0);
 		private Vector2 _jumpFactor = new Vector2(0, -6f);
+
 		private bool _onGround = false;
+
+		private bool _hasMovementInertia = false;
+		public bool HasMovementInertia
+		{
+			get
+			{
+				return _hasMovementInertia;
+			}
+
+			set
+			{
+				_hasMovementInertia = value;
+			}
+		}
 
 		public DynamicEntity(Level level)
 			: base(level)
@@ -63,6 +78,9 @@ namespace Platformer.World.EntitySystem
 			if (deltaMovement.X != 0 && deltaMovement.Y != 0)
 				throw new MultipleMovementAxisException("Dynamic entities may only move on a single axis at one time");
 
+			if (HasMovementInertia)
+				deltaMovement *= 0.4f;
+
 			var newPosition = Position + deltaMovement;
 
 			var tileStart = ((newPosition - HalfDimensions) / new Vector2(Tile.Width, Tile.Height)).Floor();
@@ -90,6 +108,7 @@ namespace Platformer.World.EntitySystem
 			}
 
 			BindPositionToCollisions(collidedTiles, deltaMovement, newPosition, blocked);
+			ApplyPostMovementStates();
 		}
 
 		private void BindPositionToCollisions(List<Vector2> collidedTiles, Vector2 deltaMovement, Vector2 newPosition, bool blocked)
@@ -132,6 +151,28 @@ namespace Platformer.World.EntitySystem
 
 				if (deltaMovement.Y != 0)
 					Position = new Vector2(Position.X, yy);
+			}
+		}
+
+		private void ApplyPostMovementStates()
+		{
+			var tileStart = ((Position - HalfDimensions) / new Vector2(Tile.Width, Tile.Height)).Floor();
+			var tileEnd = ((Position + HalfDimensions) / new Vector2(Tile.Width, Tile.Height)).Floor();
+
+			_hasMovementInertia = false;
+
+			for (var y = tileStart.Y; y <= tileEnd.Y; y++)
+			{
+				for (var x = tileStart.X; x <= tileEnd.X; x++)
+				{
+					var xx = (int)x;
+					var yy = (int)y;
+
+					var tile = Level.GetTile(xx, yy);
+
+					if (tile.CanSubmerge)
+						_hasMovementInertia = true;
+				}
 			}
 		}
 	}
