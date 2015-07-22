@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Entensions\FloatExtensions.cs" />
     <Compile Include="Entensions\Vector2Extensions.cs" />
     <Compile Include="Exceptions\DuplicateTileException.cs" />
     <Compile Include="Exceptions\InvalidTileException.cs" />

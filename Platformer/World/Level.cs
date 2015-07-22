@@ -115,9 +115,9 @@ namespace Platformer.World
 		{
 			renderManager.ClearScreen(Color.Black);
 
-			RenderBackground(renderManager);
-
 			var camera = new Camera(this, _player.Position + new Vector2(-renderManager.ViewportWidth >> 1, -renderManager.ViewportHeight >> 1));
+
+			RenderBackground(renderManager, camera);
 
 			foreach (var entity in _entities)
 			{
@@ -182,7 +182,7 @@ namespace Platformer.World
 			}
 		}
 
-		private void RenderBackground(RenderManager renderManager)
+		private void RenderBackground(RenderManager renderManager, Camera camera)
 		{
 			Random rand = new Random();
 
@@ -196,13 +196,8 @@ namespace Platformer.World
 
 			foreach (var star in _stars)
 			{
-				var sx = star.Position.X;
-				if (sx < 0)
-					sx = renderManager.ViewportWidth - Math.Abs(star.Position.X % renderManager.ViewportWidth);
-
-				var sy = star.Position.Y;
-				if (sy < 0)
-					sy = renderManager.ViewportWidth - Math.Abs(sy % renderManager.ViewportHeight);
+				var sx = (star.Position.X + camera.Position.X / 5f).NFMod(renderManager.ViewportWidth);
+				var sy = (star.Position.Y + camera.Position.Y / 5f).NFMod(renderManager.ViewportHeight);
 
 				var tiledPosition = new Vector2(sx, sy);
 				var starCrop = new Rectangle(96, 0, star.Size, star.Size);
