@@ -107,6 +107,13 @@ namespace Platformer.World
 		{
 			renderManager.ClearScreen(Color.Black);
 
+			var camera = new Camera(this, _player.Position + new Vector2(-renderManager.ViewportWidth >> 1, -renderManager.ViewportHeight >> 1));
+
+			foreach (var entity in _entities)
+			{
+				entity.Render(renderManager, camera);
+			}
+
 			int truncPlayerX = (int)_player.Position.X;
 			int truncPlayerY = (int)_player.Position.Y;
 
@@ -128,13 +135,6 @@ namespace Platformer.World
 						y * Tile.Height - offsetY
 					);
 				}
-			}
-
-			var camera = new Camera(this, _player.Position + new Vector2(-renderManager.ViewportWidth >> 1, -renderManager.ViewportHeight >> 1));
-
-			foreach(var entity in _entities)
-			{
-				entity.Render(renderManager, camera);
 			}
 		}
 

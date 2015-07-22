@@ -15,21 +15,24 @@ namespace Platformer.TileSystem
 
 		public override void Update(Level level, int x, int y, ref int states)
 		{
-			if (states++ > 30)
+			if (states++ > 5)
 			{
 				var w = level.GetTile(x - 1, y);
 				var e = level.GetTile(x + 1, y);
 				var s = level.GetTile(x, y + 1);
 
+				var sw = level.GetTile(x - 1, y + 1);
+				var se = level.GetTile(x + 1, y + 1);
+
 				if (CanFlowInto(s))
-					level.SetTile(x, y + 1, Key);
+					level.SetTile(x, y + 1, this.Key);
 				else
 				{
-					if (CanFlowInto(w))
-						level.SetTile(x - 1, y, Key);
+					if (CanFlowInto(e) && !(s is Water))
+						level.SetTile(x + 1, y, this.Key);
 
-					if (CanFlowInto(e))
-						level.SetTile(x + 1, y, Key);
+					if (CanFlowInto(w) && !(s is Water))
+						level.SetTile(x - 1, y, this.Key);
 				}
 
 				states = 0;
@@ -42,12 +45,7 @@ namespace Platformer.TileSystem
 
 		public override void Render(RenderManager renderManager, int x, int y)
 		{
-			renderManager.DrawTexture(new Rectangle(0, 32, Tile.Width, Tile.Height), new Vector2(x, y));
-		}
-
-		private bool CanFlowInto(Tile t)
-		{
-			return t is Empty || t.IsDestroyedByWater;
+			renderManager.DrawTexture(new Rectangle(0, 32, Tile.Width, Tile.Height), new Vector2(x, y), 0.6f);
 		}
 	}
 }

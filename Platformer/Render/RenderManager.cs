@@ -51,11 +51,16 @@ namespace Platformer.Render
 			GraphicsDeviceManager.GraphicsDevice.Clear(col);
 		}
 
-		public void DrawTexture(Rectangle textureCrop, Vector2 position)
+		public void DrawTexture(Rectangle textureCrop, Vector2 position, float opacity)
 		{
 			SpriteBatch.Begin();
-			SpriteBatch.Draw(Spritesheet, position, textureCrop, Color.White);
+			SpriteBatch.Draw(Spritesheet, position, textureCrop, Color.White * opacity);
 			SpriteBatch.End();
+		}
+
+		public void DrawTexture(Rectangle textureCrop, Vector2 position)
+		{
+			DrawTexture(textureCrop, position, 1f);
 		}
 	}
 }

@@ -82,5 +82,10 @@ namespace Platformer.TileSystem
 
 			// Standard entity intersection
 		}
+
+		protected bool CanFlowInto(Tile t)
+		{
+			return t is Empty || t.IsDestroyedByWater;
+		}
 	}
 }
