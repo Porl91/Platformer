@@ -101,11 +101,21 @@ namespace Platformer.World
 			{
 				entity.Update(keyboardState);
 			}
+
+			if(_stars != null && starUpdate++ > 80)
+			{
+				foreach (var star in _stars)
+					star.Position.X -= starShiftFactor;
+
+				starUpdate = 0;
+			}
 		}
 
 		public void Render(RenderManager renderManager)
 		{
 			renderManager.ClearScreen(Color.Black);
+
+			RenderBackground(renderManager);
 
 			var camera = new Camera(this, _player.Position + new Vector2(-renderManager.ViewportWidth >> 1, -renderManager.ViewportHeight >> 1));
 
@@ -135,6 +145,72 @@ namespace Platformer.World
 						y * Tile.Height - offsetY
 					);
 				}
+			}
+		}
+
+		// Consider moving to a separate class
+		private List<Star> _stars = null;
+		private int starDensity = 100;
+		private int starUpdate = 0;
+		private float starShiftFactor = 1f;
+
+		class Star
+		{
+			public Vector2 Position = new Vector2(0, 0);
+
+			private static Random rand = new Random();
+
+			private int _size = 3;
+
+			public int Size
+			{
+				get
+				{
+					return _size;
+				}
+
+				set
+				{
+					_size = value;
+				}
+			}
+
+			public Star(Vector2 position)
+			{
+				_size = rand.Next(1, 3);
+				Position = position;
+			}
+		}
+
+		private void RenderBackground(RenderManager renderManager)
+		{
+			Random rand = new Random();
+
+			if (_stars == null)
+			{
+				_stars = new List<Star>();
+
+				for (var i = 0; i < starDensity; i++)
+					_stars.Add(new Star(new Vector2(rand.Next(0, renderManager.ViewportWidth), rand.Next(0, renderManager.ViewportHeight))));
+			}
+
+			foreach (var star in _stars)
+			{
+				var sx = star.Position.X;
+				if (sx < 0)
+					sx = renderManager.ViewportWidth - Math.Abs(star.Position.X % renderManager.ViewportWidth);
+
+				var sy = star.Position.Y;
+				if (sy < 0)
+					sy = renderManager.ViewportWidth - Math.Abs(sy % renderManager.ViewportHeight);
+
+				var tiledPosition = new Vector2(sx, sy);
+				var starCrop = new Rectangle(96, 0, star.Size, star.Size);
+
+				if (rand.Next(0, 90) == 45)
+					renderManager.DrawTexture(starCrop, tiledPosition, rand.Next(0, 100) / 100);
+				else
+					renderManager.DrawTexture(starCrop, tiledPosition);
 			}
 		}
 
