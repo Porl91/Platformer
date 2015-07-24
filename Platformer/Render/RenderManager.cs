@@ -11,6 +11,8 @@ namespace Platformer.Render
 		public Rectangle ScreenArea { get; private set; }
 
 		private int _viewportWidth = 0;
+		private int _viewportHeight = 0;
+
 		public int ViewportWidth
 		{
 			get
@@ -24,7 +26,6 @@ namespace Platformer.Render
 			}
 		}
 
-		private int _viewportHeight = 0;
 		public int ViewportHeight
 		{
 			get

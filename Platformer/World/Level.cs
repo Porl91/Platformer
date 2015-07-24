@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Platformer.Entensions;
 using Platformer.Render;
 using Platformer.TileSystem;
+using Platformer.World.Background;
 using Platformer.World.EntitySystem;
 
 namespace Platformer.World
@@ -23,6 +24,15 @@ namespace Platformer.World
 		private int _defaultMapHeight = 512;
 
 		private Vector2 _mapUpdateExtent = Vector2.Zero;
+
+		#region Background world objects
+		private List<Star> _stars = null;
+		private int starDensity = 100;
+		private int starUpdate = 0;
+		private float starShiftFactor = 1f;
+		#endregion
+
+		#region Accessor methods
 		public Vector2 MapUpdateExtent
 		{
 			get
@@ -35,6 +45,7 @@ namespace Platformer.World
 				return _mapUpdateExtent;
 			}
 		}
+		#endregion
 
 		public Level(int mapWidth, int mapHeight)
 		{
@@ -88,7 +99,7 @@ namespace Platformer.World
 					var xx = (int)(x + playerTile.X);
 					var yy = (int)(y + playerTile.Y);
 
-					if(yy < 0 || xx < 0 || yy >= _mapHeight || xx >= _mapWidth)
+					if (yy < 0 || xx < 0 || yy >= _mapHeight || xx >= _mapWidth)
 					{
 						continue;
 					}
@@ -102,7 +113,7 @@ namespace Platformer.World
 				entity.Update(keyboardState);
 			}
 
-			if(_stars != null && starUpdate++ > 80)
+			if (_stars != null && starUpdate++ > 80)
 			{
 				foreach (var star in _stars)
 					star.Position.X -= starShiftFactor;
@@ -148,40 +159,6 @@ namespace Platformer.World
 			}
 		}
 
-		// Consider moving to a separate class
-		private List<Star> _stars = null;
-		private int starDensity = 100;
-		private int starUpdate = 0;
-		private float starShiftFactor = 1f;
-
-		class Star
-		{
-			public Vector2 Position = new Vector2(0, 0);
-
-			private static Random rand = new Random();
-
-			private int _size = 3;
-
-			public int Size
-			{
-				get
-				{
-					return _size;
-				}
-
-				set
-				{
-					_size = value;
-				}
-			}
-
-			public Star(Vector2 position)
-			{
-				_size = rand.Next(1, 3);
-				Position = position;
-			}
-		}
-
 		private void RenderBackground(RenderManager renderManager, Camera camera)
 		{
 			Random rand = new Random();
@@ -209,11 +186,12 @@ namespace Platformer.World
 			}
 		}
 
+		#region Getters/setters
 		public Tile GetTile(int mapX, int mapY)
 		{
-			if (mapX < 0 
+			if (mapX < 0
 				|| mapY < 0
-				|| mapX >= _mapWidth 
+				|| mapX >= _mapWidth
 				|| mapY >= _mapHeight)
 			{
 				return TileFactory.Empty;
@@ -226,9 +204,9 @@ namespace Platformer.World
 
 		public void SetTile(int mapX, int mapY, int tileID)
 		{
-			if (mapX < 0 
-				|| mapY < 0 
-				|| mapX >= _mapWidth 
+			if (mapX < 0
+				|| mapY < 0
+				|| mapX >= _mapWidth
 				|| mapY >= _mapHeight
 				|| !TileFactory.TileExists(tileID))
 			{
@@ -237,5 +215,6 @@ namespace Platformer.World
 
 			_map[mapY * _mapWidth + mapX] = tileID;
 		}
+		#endregion
 	}
 }

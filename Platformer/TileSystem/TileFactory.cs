@@ -54,7 +54,7 @@ namespace Platformer.TileSystem
 
 		public static void UpdateTypes()
 		{
-			foreach(var tile in Tiles)
+			foreach (var tile in Tiles)
 			{
 				tile.Value.UpdateType();
 			}

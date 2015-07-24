@@ -50,9 +50,11 @@
     <Compile Include="TileSystem\Dirt.cs" />
     <Compile Include="TileSystem\Empty.cs" />
     <Compile Include="TileSystem\Grass.cs" />
+    <Compile Include="TileSystem\ITile.cs" />
     <Compile Include="TileSystem\Tile.cs" />
     <Compile Include="TileSystem\TileFactory.cs" />
     <Compile Include="TileSystem\Water.cs" />
+    <Compile Include="World\Background\Star.cs" />
     <Compile Include="World\EntitySystem\DynamicEntity.cs" />
     <Compile Include="World\EntitySystem\Camera.cs" />
     <Compile Include="World\EntitySystem\Entity.cs" />

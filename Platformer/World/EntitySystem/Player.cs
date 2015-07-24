@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -38,13 +37,13 @@ namespace Platformer.World.EntitySystem
 		public override void Render(RenderManager renderManager, Camera camera)
 		{
 			var offsetPosition = Position - camera.Position - HalfDimensions;
-			renderManager.DrawTexture(new Rectangle(64, 0, (int) (HalfDimensions.X * 2), (int) (HalfDimensions.Y * 2)), offsetPosition);
+			renderManager.DrawTexture(new Rectangle(64, 0, (int)(HalfDimensions.X * 2), (int)(HalfDimensions.Y * 2)), offsetPosition);
 		}
 
 		private void CreateCrater(int radius)
 		{
 			var radius2 = radius * radius;
-			for(var y = -radius; y <= radius; y++)
+			for (var y = -radius; y <= radius; y++)
 			{
 				var d1 = y * y;
 				for (var x = -radius; x <= radius; x++)

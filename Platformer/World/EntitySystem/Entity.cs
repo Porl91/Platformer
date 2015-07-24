@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -15,13 +14,16 @@ namespace Platformer.World.EntitySystem
 		LEFT,
 		RIGHT
 	}
-	
+
 	public abstract class Entity
 	{
-		public Vector2 Position { get; set; }
-		public EntityDirection Direction { get; set; }
-		public Level Level { get; set; }
-		
+		public Vector2 Position;
+		public EntityDirection Direction;
+		public Level Level;
+
+		private Vector2 _halfDimensions;
+
+		#region Constructors
 		public Entity(Level level, float x, float y)
 			: this(level, new Vector2(x, y))
 		{
@@ -38,9 +40,9 @@ namespace Platformer.World.EntitySystem
 			Direction = EntityDirection.DOWN;
 			Level = level;
 		}
+		#endregion
 
-		private Vector2 _halfDimensions { get; set; }
-
+		#region Accessor methods
 		public Vector2 HalfDimensions
 		{
 			get
@@ -58,6 +60,7 @@ namespace Platformer.World.EntitySystem
 				_halfDimensions = value;
 			}
 		}
+		#endregion
 
 		public abstract void Update(KeyboardState keyboardState);
 

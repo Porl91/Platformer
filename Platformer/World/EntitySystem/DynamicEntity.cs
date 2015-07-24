@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -15,8 +14,14 @@ namespace Platformer.World.EntitySystem
 		private Vector2 _jumpFactor = new Vector2(0, -6f);
 
 		private bool _onGround = false;
-
 		private bool _hasMovementInertia = false;
+
+		public DynamicEntity(Level level)
+			: base(level)
+		{
+		}
+
+		#region Accessor methods
 		public bool HasMovementInertia
 		{
 			get
@@ -28,11 +33,6 @@ namespace Platformer.World.EntitySystem
 			{
 				_hasMovementInertia = value;
 			}
-		}
-
-		public DynamicEntity(Level level)
-			: base(level)
-		{
 		}
 
 		public Vector2 Velocity
@@ -52,6 +52,7 @@ namespace Platformer.World.EntitySystem
 				_velocity = value;
 			}
 		}
+		#endregion
 
 		public override void Update(KeyboardState keyboardState)
 		{
